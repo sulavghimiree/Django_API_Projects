@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Logout</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-green-100 h-screen flex items-center justify-center">
+    <div class="bg-white p-6 rounded shadow-md text-center w-96">
+      <h2 class="text-2xl font-bold mb-4">You're Logged In 🎉</h2>
+      <button id="logoutBtn" class="bg-red-500 text-white px-4 py-2 rounded">
+        Logout
+      </button>
+    </div>
+
+    <script>
+      document
+        .getElementById("logoutBtn")
+        .addEventListener("click", async () => {
+          const token = localStorage.getItem("access");
+          await fetch("http://127.0.0.1:8000/api/logout/", {
+            method: "POST",
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          });
+          localStorage.removeItem("access");
+          alert("You have been logged out.");
+          window.location.href = "login.html";
+        });
+    </script>
+  </body>
+</html>
